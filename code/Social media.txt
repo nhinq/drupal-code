@@ -1,0 +1,5 @@
+  <a class="social_share_twitter" href="https://twitter.com/share?url=<?php print $base_url;?><?php print strip_tags($node_url); ?>-button" target="_blank"><span class=" icon social_share_twitter"></span>Share this on Twitter</a>
+      
+      <a class="social_share_facebook" href="https://www.facebook.com/sharer/sharer.php?u=<?php print $base_url;?><?php print strip_tags($node_url); ?>" target="_blank"><span class=" icon social_share_facebook"></span>Share this on Facebook</a>
+    
+      <a class="social_share_pinit" href="http://pinterest.com/pin/create/button/?url=<?php print $base_url;?><?php print strip_tags($node_url); ?>&media=<?php  print $file_uri; ?>&description=<?php  print $body1;?>" target="_blank"><span class=" icon social_share_pinit"></span>Share this on Pinterest</a>

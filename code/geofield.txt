@@ -1,0 +1,6 @@
+Geofield
+OpenLayers
+Geocoder
+Geocoder Autocomplete
+geoPHP
+Proj4JS

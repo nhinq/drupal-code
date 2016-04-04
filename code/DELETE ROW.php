@@ -1,0 +1,1 @@
+DELETE FROM system WHERE name IN('media','mediafield','media_wysiwyg','media_gallery');

@@ -1,0 +1,76 @@
+<VirtualHost *:80>
+	ServerName dev.who2.com
+
+	DocumentRoot /mnt/data-store/www/www.who2.com/html
+
+	<Directory /mnt/data-store/www/www.who2.com/html>
+		Options Indexes FollowSymLinks MultiViews
+		AllowOverride All
+		Order allow,deny
+		allow from all
+    Options +Indexes
+	</Directory>
+
+	ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/
+	<Directory "/usr/lib/cgi-bin">
+		AllowOverride All
+		Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
+		Order allow,deny
+		Allow from all
+	</Directory>
+
+	ErrorLog ${APACHE_LOG_DIR}/error.log
+
+	# Possible values include: debug, info, notice, warn, error, crit,
+	# alert, emerg.
+	LogLevel warn
+
+	CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+    Alias /doc/ "/usr/share/doc/"
+    <Directory "/usr/share/doc/">
+        Options Indexes MultiViews FollowSymLinks
+        AllowOverride All
+        Order deny,allow
+        Deny from all
+        Allow from 127.0.0.0/255.0.0.0 ::1/128
+    </Directory>
+    
+  <IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteMap who2map txt:/mnt/data-store/www/www.who2.com/map/who2map.txt
+  
+  # force www.who2.com
+  RewriteCond %{HTTP_HOST} ^edit.who2\.com$ [NC]
+  RewriteRule ^/(.*)$ http://www.who2.com/$1 [L,R=301]
+  
+  RewriteCond %{HTTP_HOST} ^almanac.who2\.com$ [NC]
+  RewriteRule ^/(.*)$ http://www.who2.com/$1 [L,R=301]
+  
+  RewriteCond %{HTTP_HOST} ^who2\.com$ [NC]
+  RewriteRule ^/(.*)$ http://www.who2.com/$1 [L,R=301]
+  
+  # prevent image hotlinking
+  RewriteCond %{HTTP_REFERER} !^$
+  RewriteCond %{HTTP_REFERER} !^http://54.235.99.5/.*$ [NC]
+  RewriteCond %{HTTP_REFERER} !^http://www\.xyzzy\.com/.*$ [NC]
+  RewriteCond %{HTTP_REFERER} !^http://(www\.)?who2\.com/.*$ [NC]
+  RewriteRule .*\.(gif|jpe?g|png)$ - [F,NC,L]
+  
+  # handle currently inoperative /name URLs
+  RewriteRule ^/name/$ /coming-soon [R=302,L]
+  RewriteRule ^/name$ /coming-soon [R=302,L]
+  RewriteRule ^(/name/.*\.html)$ /coming-soon [R=302,L]
+  
+  # handle URLs from the old site
+  RewriteRule ^(/.*\.html)$ ${who2map:$1} [R=301,L]
+  RewriteRule ^(/blog/.*\.gif)$ ${who2map:$1} [R=301,L]
+  RewriteRule ^(/blog/.*\.jpeg)$ ${who2map:$1} [R=301,L]
+  RewriteRule ^(/blog/.*\.jpg)$ ${who2map:$1} [R=301,L]
+  RewriteRule ^(/blog/.*\.png)$ ${who2map:$1} [R=301,L]
+  RewriteRule ^(/blog/.*\.tiff)$ ${who2map:$1} [R=301,L]
+  RewriteRule ^(/blog/\d\d\d\d/\d\d/)$ ${who2map:$1} [R=301,L]
+  RewriteRule ^(/blog/\d\d\d\d/\d\d)$ ${who2map:$1/} [R=301,L]
+   
+  </IfModule>
+</VirtualHost>

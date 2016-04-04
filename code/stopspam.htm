@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<!--You can use jQuery or plain JavaScript to add the form action.-->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!--The Modernizr script goes in the head of your HTML. -->
+<script src="http://cdn.dexmedia.com/js/modernizr.js"></script>
+<script>
+$(document).ready(function(){
+    var useJS = $('html').hasClass('js');
+    if (useJS){
+        var formurl = 'http://www.formaction.com';
+        $("form#contact").attr("action", formurl);
+    }
+});
+</script>
+</head>
+<body>
+<!--The form action is blank-->
+<form action="" method="post" id="contact">
+<input type="text" name="firstName" value="First Name" />
+<input type="text" name="LastName" value="Last Name" />
+<input type="submit" name="submit" value="Send" />
+</form>
+<noscript>
+<p><strong>To submit the form, JavaScript must be enabled.</strong></p>
+</noscript>
+</body> 
+</html> 

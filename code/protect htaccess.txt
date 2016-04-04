@@ -1,0 +1,13 @@
+AuthType Basic
+AuthName "SNS Protected Area"
+AuthUserFile /var/www/protect/.htpasswd
+Require valid-user
+
+Authencation for shopandsavenj.com
+User: snsdev
+Pass: NewJersey2015
+
+snsdev:$apr1$mguojrrc$V5x2bbedc0wKqt.APDvZO0
+
+
+Learn http://www.htaccesstools.com/htaccess-authentication/
