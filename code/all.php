@@ -10,7 +10,7 @@
 
 ini_set('display_errors',1);  #TODO turn off before deploy
  
-$ACCESS_PWD='cesoft2015!';
+$ACCESS_PWD='';
 $self=$_SERVER['PHP_SELF'];
 $_SESSION['is_logged'] = false;
 
